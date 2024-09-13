@@ -1,4 +1,4 @@
-const apikey="bda784d5dda1549abe45e861c4b3d1ac"
+const apikey="9d8bae676a91833f1c124111a1f4f3dc"
 export const getTopHeadlines=async(category="general",lang="en",search="") =>{
     const response = await fetch(`https://gnews.io/api/v4/top-headlines?max=100&apikey=${apikey}&category=${category}&lang=${lang}&country=us&q=${search}`);
     const data = await response.json();

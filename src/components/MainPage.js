@@ -270,10 +270,10 @@ useEffect(() => {
         const response1 = await getNewsData(category,"en",searchterm);
         console.log(response1);
         setcardsdata(response1)
-        await new Promise(resolve => setTimeout(resolve, 1000)); 
+        await new Promise(resolve => setTimeout(resolve, 2000)); 
         const response = await getTopHeadlines(category,"en",searchterm); // Assuming getTopHeadlines is defined and returns a promise
         setData(response);console.log(response)
-      } catch (error) {
+      } catch (error) {setData([]);setcardsdata([]);
         console.error("Error fetching data:", error);
       }
     };
@@ -411,7 +411,7 @@ useEffect(() => {
     <div>
         <MainPageNavbar setlang1={setlang} setsearchterm={setsearchterm} setcategory={setcategory}/>
         {/* MainPage */}
-       {(lang!=="English"  || data.length===0) &&
+       {(lang!=="English"  || (!data || data.length===0)) &&
         <div style={{paddingTop:'3rem'}}>
 
           <img src="https://img.freepik.com/premium-vector/no-data-found-empty-file-folder-concept-design-vector-illustration_620585-1698.jpg" alt="No Data Found" />
@@ -440,12 +440,12 @@ useEffect(() => {
 </Carousel>
         <div style={{padding:'5rem'}}>
           <div className="row">
-            {cardsdata.map((card, index) => (
+            {cardsdata && cardsdata.length && cardsdata.map((card, index) => (
               index % 5 === 0 && index !== 0 ? (
                 <div className="w-100" key={index}></div> 
               ) : null
             ))}
-            {cardsdata.map((card, index) => (
+            {cardsdata && cardsdata.length && cardsdata.map((card, index) => (
               <div className="col mb-4" key={index}> 
                 <div className="card" style={{width:'22rem',height:'25rem', marginBottom: '1rem'}}> 
                   <img className="card-img-top" style={{height:'10rem'}} src={card.image} alt="Card image cap" />
